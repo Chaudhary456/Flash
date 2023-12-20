@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158467881664",
+    "project_id": "flash-backend-7eb70",
+    "storage_bucket": "flash-backend-7eb70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158467881664:android:17cfd988bdf543d19a0b25",
+        "android_client_info": {
+          "package_name": "com.example.flash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTWocRcwbXw7IcGMbgLQNmHDJ4aFgKJsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
