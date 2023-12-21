@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.flash.adapter.RecentChatRecyclerAdapter;
-import com.example.flash.adapter.SearchUserRecyclerAdapter;
 import com.example.flash.model.ChatRoomModel;
-import com.example.flash.model.UserModel;
 import com.example.flash.utils.FirebaseUtil;
-import com.example.flash.utils.LinearLayoutManagerWrapper;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 

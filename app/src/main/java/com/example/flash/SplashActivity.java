@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.flash.model.UserModel;
+import com.example.flash.utils.AndroidUtil;
 import com.example.flash.utils.FirebaseUtil;
 
 public class SplashActivity extends AppCompatActivity {
@@ -15,16 +17,38 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (FirebaseUtil.isLoggedIn()) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                } else {
-                    startActivity(new Intent(SplashActivity.this, LoginPhoneNumberActivity.class));
+        if(getIntent().getExtras()!=null){
+
+            String userId = getIntent().getExtras().getString("userId");
+            FirebaseUtil.allUSerCollectionReference().document(userId).get()
+                    .addOnCompleteListener(task ->{
+                        if(FirebaseUtil.isLoggedIn() && task.isSuccessful()){
+                            UserModel model = task.getResult().toObject(UserModel.class);
+
+                            Intent mainIntent = new Intent(this,MainActivity.class);
+                            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(mainIntent);
+
+                            Intent intent = new Intent(this, ChatActivity.class);
+                            AndroidUtil.passUserModelAsIntent(intent,model);
+                            intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+        }else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (FirebaseUtil.isLoggedIn()) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, LoginPhoneNumberActivity.class));
+                    }
+                    finish();
                 }
-                finish();
-            }
-        },1000);
+            },1000);
+        }
+
     }
 }

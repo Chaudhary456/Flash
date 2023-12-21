@@ -2,6 +2,7 @@ package com.example.flash.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,14 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                 .get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         UserModel otherUserModel = task.getResult().toObject(UserModel.class);
+
+                        FirebaseUtil.getOtherProfilePicReference(otherUserModel.getUserId()).getDownloadUrl()
+                                .addOnCompleteListener(showImageTask -> {
+                                    if(showImageTask.isSuccessful()){
+                                        Uri uri = showImageTask.getResult();
+                                        AndroidUtil.setProfilePic(context,uri,holder.profilePic);
+                                    }
+                                });
 
                         Log.d("FIRE_BASE_USERNAME",otherUserModel.getUsername());
 
